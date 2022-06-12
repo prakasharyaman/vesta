@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:vesta/models/channel.dart';
 import 'package:vesta/models/country.dart';
 
@@ -19,7 +20,7 @@ class DataRepository {
           .collection('countries')
           .doc(country)
           .collection('channels')
-          .get();
+          .get(const GetOptions(source: Source.serverAndCache));
       if (channelSnapshot.docs.isNotEmpty) {
         for (var channelSnapshot in channelSnapshot.docs) {
           var channelJson = channelSnapshot.data()['channel'];
@@ -28,7 +29,24 @@ class DataRepository {
             channels.add(channel);
           }
         }
-        print('created channels');
+        var tempCategories = [];
+        for (var channel in channels) {
+          tempCategories.addAll(channel.categories);
+        }
+        for (var category in tempCategories) {
+          var categoryx = tempCategories
+              .where((element) => element == category && category != 'xxx')
+              .toList();
+          if (categoryx.isNotEmpty && categoryx.length > 5) {
+            categories.add(category);
+          }
+        }
+        categories = categories.toSet().toList();
+        if (categories.length > 10) {
+          categories = categories.sublist(0, 10);
+        }
+        debugPrint(categories.toString());
+        debugPrint('found channels');
       }
     }
   }
@@ -36,7 +54,9 @@ class DataRepository {
 // get a list of countries
   getCountries() async {
     if (firebaseAuth.currentUser != null) {
-      var countriesSnapshot = await firestore.collection('countries').get();
+      var countriesSnapshot = await firestore
+          .collection('countries')
+          .get(const GetOptions(source: Source.serverAndCache));
       if (countriesSnapshot.docs.isNotEmpty) {
         for (var countrySnapshot in countriesSnapshot.docs) {
           var countryJson = countrySnapshot.data();

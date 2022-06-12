@@ -24,20 +24,14 @@ class Home extends GetView<HomeController> {
           body: const HomePage(),
         ),
       ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(15),
-          topRight: Radius.circular(15),
-        ),
-        child: BottomNavigationBar(
-          selectedItemColor: const Color(0xFF5C258D),
-          unselectedItemColor: const Color(0xFF5C258D).withOpacity(0.4),
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          ],
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: const Color(0xFF5C258D),
+        unselectedItemColor: const Color(0xFF5C258D).withOpacity(0.4),
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
       ),
     );
   }
@@ -47,7 +41,7 @@ class Home extends GetView<HomeController> {
       elevation: 0,
       backgroundColor: Colors.transparent,
       floating: true,
-      pinned: true,
+      pinned: false,
       title: Row(
         children: const [
           Icon(Icons.location_on),
@@ -62,29 +56,6 @@ class Home extends GetView<HomeController> {
           Icon(Icons.notifications_active_rounded),
         ],
       ),
-      // bottom: TabBar(
-      //   controller: tabController,
-      //   tabs: const [
-      //     Tab(
-      //       text: 'All',
-      //     ),
-      //     Tab(
-      //       text: 'Movies',
-      //     ),
-      //     Tab(
-      //       text: 'News',
-      //     ),
-      //     Tab(
-      //       text: 'Music',
-      //     ),
-      //     Tab(
-      //       text: 'Entertainment',
-      //     ),
-      //     Tab(
-      //       text: 'Travel',
-      //     ),
-      //   ],
-      // ),
     );
   }
 }
