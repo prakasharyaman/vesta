@@ -28,8 +28,7 @@ class FirebaseController extends GetxController {
   void onInit() {
     //log app open
     firebaseAnalytics.logAppOpen();
-    // home controller
-    Get.put<HomeController>(HomeController());
+
     //run every time auth state changes
     ever(user, handleAuthChanged);
     //bind to user model
@@ -48,16 +47,18 @@ class FirebaseController extends GetxController {
   handleAuthChanged(_firebaseUser) async {
     //get user data from firestore
     if (_firebaseUser?.uid != null) {
+      // home controller
+      Get.put<HomeController>(HomeController());
       userModel.value = UserModel(id: _firebaseUser.uid);
       FirebaseCrashlytics.instance.setUserIdentifier(_firebaseUser.uid);
       await firebaseAnalytics.logLogin();
       await firebaseAnalytics.setUserId(id: _firebaseUser.uid);
-      //log user on cloud
-      logUserActiveTodayOnCloud();
-      // // check for introduction
-      // checkForIntroduction();
-      //check for update
-      checkForLatestVersion();
+      // //log user on cloud
+      // logUserActiveTodayOnCloud();
+      // // // check for introduction
+      // // checkForIntroduction();
+      // //check for update
+      // checkForLatestVersion();
       print(userModel.value.id);
     } else if (_firebaseUser == null) {
       await signIn();
