@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 BoxDecoration kHomeBoxDecoration = const BoxDecoration(
@@ -6,8 +5,8 @@ BoxDecoration kHomeBoxDecoration = const BoxDecoration(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     colors: [
-      Color(0xFFECE9E6),
-      Color(0xFFFFFFFF),
+      Color(0xFF5C258D),
+      Color(0xFF4389A2),
     ],
   ),
 );

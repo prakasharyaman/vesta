@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.vesta">
+    package="com.otft.vesta">
    <application
-        android:label="vesta"
+        android:label="Vesta"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -1,4 +1,4 @@
-package com.example.vesta
+package com.otft.vesta
 
 import io.flutter.embedding.android.FlutterActivity
 
