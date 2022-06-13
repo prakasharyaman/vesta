@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vesta/constants/constants.dart';
+import 'package:vesta/ui/countrySelect/country_select.dart';
 
 import 'hompage/controller/home_controller.dart';
 import 'hompage/home_page.dart';
@@ -43,17 +44,24 @@ class Home extends GetView<HomeController> {
       floating: true,
       pinned: false,
       title: Row(
-        children: const [
-          Icon(Icons.location_on),
-          Text(
-            'United States',
-            style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline),
+        children: [
+          const Icon(Icons.location_on),
+          GestureDetector(
+            onTap: () {
+              Get.to(const CountrySelect());
+            },
+            child: Text(
+              controller.country == null
+                  ? 'Select Country'
+                  : controller.country!.name,
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline),
+            ),
           ),
-          Spacer(),
-          Icon(Icons.notifications_active_rounded),
+          const Spacer(),
+          const Icon(Icons.notifications_active_rounded),
         ],
       ),
     );

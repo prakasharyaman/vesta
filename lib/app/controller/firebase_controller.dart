@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -9,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../models/user_model.dart';
+import '../../ui/countrySelect/controller/country_select_controller.dart';
 import '../../ui/hompage/controller/home_controller.dart';
 
 class FirebaseController extends GetxController {
@@ -49,6 +52,8 @@ class FirebaseController extends GetxController {
     if (_firebaseUser?.uid != null) {
       // home controller
       Get.put<HomeController>(HomeController());
+      Get.put<CountrySelectController>(CountrySelectController());
+
       userModel.value = UserModel(id: _firebaseUser.uid);
       FirebaseCrashlytics.instance.setUserIdentifier(_firebaseUser.uid);
       await firebaseAnalytics.logLogin();

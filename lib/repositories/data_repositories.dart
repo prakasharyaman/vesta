@@ -20,6 +20,7 @@ class DataRepository {
           .collection('countries')
           .doc(country)
           .collection('channels')
+          .limit(1000)
           .get(const GetOptions(source: Source.serverAndCache));
       if (channelSnapshot.docs.isNotEmpty) {
         for (var channelSnapshot in channelSnapshot.docs) {
@@ -37,7 +38,7 @@ class DataRepository {
           var categoryx = tempCategories
               .where((element) => element == category && category != 'xxx')
               .toList();
-          if (categoryx.isNotEmpty && categoryx.length > 5) {
+          if (categoryx.isNotEmpty && categoryx.length > 3) {
             categories.add(category);
           }
         }

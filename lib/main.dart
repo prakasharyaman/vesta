@@ -3,16 +3,18 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'app/app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'app/controller/firebase_controller.dart';
 import 'firebase_options.dart';
+import 'ui/countrySelect/controller/country_select_controller.dart';
 
 void main() async {
   runZonedGuarded<Future<void>>(() async {
     // zoned method of running
     WidgetsFlutterBinding.ensureInitialized();
-
+    await Hive.initFlutter();
     //firebase init
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
