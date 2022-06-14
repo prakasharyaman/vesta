@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vesta/constants/constants.dart';
+import 'package:vesta/ui/channelPage/channel_page.dart';
 import 'package:vesta/ui/hompage/controller/home_controller.dart';
 import 'package:vesta/ui/hompage/widgets/category_tab.dart';
 import 'package:vesta/ui/hompage/widgets/popular_widget.dart';
@@ -102,8 +103,18 @@ class HomePage extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               itemCount: popularChannels.length,
                               itemBuilder: (_, index) {
-                                return PopularWidget(
-                                    channel: popularChannels[index]);
+                                return GestureDetector(
+                                  onTap: () {
+                                    Get.to(ChannelPage(
+                                        channel: channels[index],
+                                        channelStream: controller.channelStreams
+                                            .firstWhere((element) =>
+                                                element.channel ==
+                                                channels[index].id)));
+                                  },
+                                  child: PopularWidget(
+                                      channel: popularChannels[index]),
+                                );
                               },
                             ),
                           ),

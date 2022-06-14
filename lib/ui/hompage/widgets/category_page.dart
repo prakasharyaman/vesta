@@ -4,6 +4,8 @@ import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:vesta/ui/hompage/controller/home_controller.dart';
 import 'package:vesta/ui/hompage/widgets/popular_widget.dart';
 
+import '../../channelPage/channel_page.dart';
+
 class CategoryPage extends StatelessWidget {
   const CategoryPage({Key? key, required this.category, required this.height})
       : super(key: key);
@@ -59,7 +61,16 @@ class CategoryPage extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return PopularWidget(channel: categoryChannels[index]);
+              return GestureDetector(
+                  onTap: () {
+                    Get.to(ChannelPage(
+                        channel: homeController.channels[index],
+                        channelStream: homeController.channelStreams.firstWhere(
+                            (element) =>
+                                element.channel ==
+                                homeController.channels[index].id)));
+                  },
+                  child: PopularWidget(channel: categoryChannels[index]));
             },
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,

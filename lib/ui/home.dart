@@ -56,6 +56,9 @@ class Home extends GetView<HomeController> {
                     child: SearchWidget(channel: channel),
                   ),
                 ));
+          } else if (index == 2) {
+            Get.snackbar('You Are Not Signed In',
+                " You don't need a profile , you can watch without one ");
           }
         },
         unselectedItemColor: const Color(0xFF5C258D).withOpacity(0.4),
@@ -90,7 +93,11 @@ class Home extends GetView<HomeController> {
                 )),
           ),
           const Spacer(),
-          const Icon(Icons.notifications_active_rounded),
+          GestureDetector(
+              onTap: () {
+                Get.snackbar('No notifications found', "");
+              },
+              child: const Icon(Icons.notifications_active_rounded)),
         ],
       ),
     );

@@ -1,7 +1,11 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vesta/models/index.dart';
+import 'package:vesta/ui/hompage/controller/home_controller.dart';
 import 'package:video_player/video_player.dart';
+
+import '../../channelPage/channel_page.dart';
 
 class SwiperWidget extends StatefulWidget {
   const SwiperWidget({
@@ -36,6 +40,7 @@ class _SwiperWidgetState extends State<SwiperWidget> {
 
   @override
   Widget build(BuildContext context) {
+    HomeController homeController = Get.find();
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       child: Column(
@@ -110,7 +115,12 @@ class _SwiperWidgetState extends State<SwiperWidget> {
                     color: Color(0xFF5C258D),
                     size: 35,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(ChannelPage(
+                        channel: channel,
+                        channelStream: homeController.channelStreams.firstWhere(
+                            (element) => element.channel == channel.id)));
+                  },
                 ),
               ),
             ]),
