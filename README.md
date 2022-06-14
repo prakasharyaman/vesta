@@ -9,7 +9,7 @@
 <img src="https://user-images.githubusercontent.com/63445447/173574545-65a16362-fa11-42c4-aec7-b37573e2a13c.png" height="200"/>
 <img src="https://user-images.githubusercontent.com/63445447/173574579-fc5a0047-50ae-4a2b-8a98-3e295c11c715.png" height="200"/>
 
-Images in this [repository](https://github.com/prakasharyaman/vesta) may be subjected to copyright.
+Images depicted above and in this [repository](https://github.com/prakasharyaman/vesta) may be subjected to copyright.
 
 
 ## Features
