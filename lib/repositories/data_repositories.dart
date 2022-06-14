@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
-import 'package:vesta/models/channel.dart';
-import 'package:vesta/models/country.dart';
+import 'package:flutter/material.dart';
+import 'package:vesta/models/index.dart';
 
 class DataRepository {
   DataRepository({required this.country});
@@ -13,6 +12,7 @@ class DataRepository {
   List<Channel> channels = [];
   List<String> categories = [];
   List<Country> countries = [];
+  List<ChannelStream> channelStreams = [];
   //get list of channels
   getChannels() async {
     if (firebaseAuth.currentUser != null) {
@@ -25,9 +25,12 @@ class DataRepository {
       if (channelSnapshot.docs.isNotEmpty) {
         for (var channelSnapshot in channelSnapshot.docs) {
           var channelJson = channelSnapshot.data()['channel'];
-          if (channelJson.isNotEmpty) {
+          var streamJson = channelSnapshot.data()['stream'];
+          if (channelJson.isNotEmpty && streamJson.isNotEmpty) {
             Channel channel = Channel.fromJson(channelJson);
+            ChannelStream channelStream = ChannelStream.fromJson(streamJson);
             channels.add(channel);
+            channelStreams.add(channelStream);
           }
         }
         var tempCategories = [];

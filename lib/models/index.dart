@@ -1,6 +1,6 @@
 export 'channel.dart';
+export 'channelStream.dart';
 export 'country.dart';
-export 'stream.dart';
 import 'package:quiver/core.dart';
 
 T? checkOptional<T>(Optional<T?>? optional, T? Function()? def) {

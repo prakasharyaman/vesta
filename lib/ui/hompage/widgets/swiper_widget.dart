@@ -1,9 +1,39 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:vesta/models/channel.dart';
+import 'package:vesta/models/index.dart';
+import 'package:video_player/video_player.dart';
 
-class SwiperWidget extends StatelessWidget {
-  const SwiperWidget({Key? key, required this.channel}) : super(key: key);
+class SwiperWidget extends StatefulWidget {
+  const SwiperWidget({
+    Key? key,
+    required this.channel,
+    required this.channelStream,
+  }) : super(key: key);
   final Channel channel;
+  final ChannelStream channelStream;
+
+  @override
+  State<SwiperWidget> createState() => _SwiperWidgetState();
+}
+
+class _SwiperWidgetState extends State<SwiperWidget> {
+  // late BetterPlayerController _betterPlayerController;
+  late Channel channel;
+  late ChannelStream channelStream;
+  late VideoPlayerController _controller;
+  @override
+  void initState() {
+    super.initState();
+    channel = widget.channel;
+    _controller = VideoPlayerController.network(widget.channelStream.url)
+      ..initialize().then((_) {
+        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        setState(() {});
+      });
+    _controller.setVolume(0);
+    _controller.play();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -16,13 +46,24 @@ class SwiperWidget extends StatelessWidget {
             flex: 5,
             child: Padding(
               padding: const EdgeInsets.all(12.0),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
-                    channel.logo,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                  )),
+              child: SizedBox(
+                height: double.infinity,
+                width: double.infinity,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: _controller.value.isInitialized
+                        ? Stack(
+                            children: [
+                              VideoPlayer(_controller),
+                              // live text widget
+                              _buildLiveTextWidget()
+                            ],
+                          )
+                        : const Center(
+                            child: CircularProgressIndicator(
+                                color: Colors.deepPurple),
+                          )),
+              ),
             ),
           ),
           // details  ,logo, title ,category
@@ -77,5 +118,29 @@ class SwiperWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Positioned _buildLiveTextWidget() {
+    return Positioned(
+        top: 5,
+        left: 5,
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.red, borderRadius: BorderRadius.circular(5)),
+          child: const Padding(
+            padding: EdgeInsets.only(right: 8.0, left: 8.0, top: 2, bottom: 2),
+            child: Text(
+              'Live',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 }

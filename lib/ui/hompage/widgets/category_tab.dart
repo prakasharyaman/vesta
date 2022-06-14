@@ -14,8 +14,9 @@ class CategoryTab extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          showBottomSheet(
-              enableDrag: true,
+          showModalBottomSheet(
+              enableDrag: false,
+              isScrollControlled: true,
               backgroundColor: Colors.transparent,
               elevation: 2,
               shape: const RoundedRectangleBorder(
@@ -26,10 +27,11 @@ class CategoryTab extends StatelessWidget {
               ),
               constraints: BoxConstraints(
                 maxHeight: height * 0.8,
+                minHeight: height * 0.8,
               ),
               context: context,
               builder: (context) {
-                return CategoryPage(category: category);
+                return CategoryPage(category: category, height: height);
               });
         },
         child: GlassContainer(

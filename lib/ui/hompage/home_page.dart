@@ -2,7 +2,6 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vesta/constants/constants.dart';
-import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:vesta/ui/hompage/controller/home_controller.dart';
 import 'package:vesta/ui/hompage/widgets/category_tab.dart';
 import 'package:vesta/ui/hompage/widgets/popular_widget.dart';
@@ -33,6 +32,7 @@ class HomePage extends StatelessWidget {
               body: RefreshIndicator(
                 color: const Color(0xFF5C258D),
                 onRefresh: () {
+                  controller.getData();
                   return Future.delayed(const Duration(seconds: 1));
                 },
                 child: Stack(
@@ -66,13 +66,21 @@ class HomePage extends StatelessWidget {
                               top: 10.0, bottom: 10.0, right: 20.0, left: 20.0),
                           child: Swiper(
                             index: 4,
+                            autoplayDelay: 20000,
+                            controller: controller.swiperController,
                             autoplayDisableOnInteraction: true,
+                            duration: 200,
                             itemCount: swiperChannels.length,
                             axisDirection: AxisDirection.right,
-                            autoplay: false,
+                            autoplay: true,
                             itemBuilder: (BuildContext context, int index) {
                               return SwiperWidget(
-                                  channel: swiperChannels[index]);
+                                channel: swiperChannels[index],
+                                channelStream: controller.channelStreams
+                                    .firstWhere((element) =>
+                                        element.channel ==
+                                        swiperChannels[index].id),
+                              );
                             },
                             layout: SwiperLayout.STACK,
                             itemHeight: height * 0.35,

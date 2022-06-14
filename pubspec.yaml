@@ -32,6 +32,9 @@ dependencies:
   dropdown_search: ^5.0.2
   hive: ^2.2.2
   hive_flutter: ^1.1.0
+  better_player: ^0.0.83
+  video_player: ^2.4.4
+  search_page: ^2.0.0+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

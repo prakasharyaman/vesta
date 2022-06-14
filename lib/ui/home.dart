@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:glassmorphism_ui/glassmorphism_ui.dart';
+import 'package:search_page/search_page.dart';
 import 'package:vesta/constants/constants.dart';
 import 'package:vesta/ui/countrySelect/country_select.dart';
+import 'package:vesta/ui/search/search_widget.dart';
 
+import '../models/channel.dart';
 import 'hompage/controller/home_controller.dart';
 import 'hompage/home_page.dart';
+import 'hompage/widgets/popular_widget.dart';
 
 class Home extends GetView<HomeController> {
   const Home({Key? key}) : super(key: key);
@@ -27,6 +32,32 @@ class Home extends GetView<HomeController> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: const Color(0xFF5C258D),
+        onTap: (index) {
+          if (index == 1) {
+            showSearch(
+                context: context,
+                delegate: SearchPage<Channel>(
+                  items: controller.channels,
+                  showItemsOnEmpty: true,
+                  searchLabel: 'Search Channels',
+                  searchStyle: const TextStyle(color: Colors.white),
+                  suggestion: const Center(
+                    child: Text('Channels'),
+                  ),
+                  failure: const Center(
+                    child: Text('No channels found :('),
+                  ),
+                  filter: (channel) => [
+                    channel.name,
+                    channel.country,
+                  ],
+                  builder: (channel) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SearchWidget(channel: channel),
+                  ),
+                ));
+          }
+        },
         unselectedItemColor: const Color(0xFF5C258D).withOpacity(0.4),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
@@ -50,15 +81,13 @@ class Home extends GetView<HomeController> {
             onTap: () {
               Get.to(const CountrySelect());
             },
-            child: Text(
-              controller.country == null
-                  ? 'Select Country'
-                  : controller.country!.name,
-              style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.underline),
-            ),
+            child: Obx(() => Text(
+                  "${controller.countryName}",
+                  style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline),
+                )),
           ),
           const Spacer(),
           const Icon(Icons.notifications_active_rounded),
