@@ -23,9 +23,8 @@ Images depicted above and in this [repository](https://github.com/prakasharyaman
 
 
 ## Installation
-## 
 
-[Download](https://play.google.com/store/apps/details?id=com.otft.vesta) from play store or clone this repository directly to your device.
+## [Download](https://play.google.com/store/apps/details?id=com.otft.vesta) from play store or clone this repository directly to your device.
 
 1. On your local machine, clone this repository and `cd` into it `git clone https://github.com/prakasharyaman/vesta.git && cd vesta`
 7. Run `flutter run` and see the app you just created
