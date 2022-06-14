@@ -1,6 +1,6 @@
 # Vesta
 ## A Live Tv App Made using data provided by Iptv
-[![N|Solid](https://user-images.githubusercontent.com/63445447/173574433-0d5e70fc-5822-4a65-bd0e-1365ff6d7685.png)
+![N|Solid](https://user-images.githubusercontent.com/63445447/173574433-0d5e70fc-5822-4a65-bd0e-1365ff6d7685.png)
 
 Vesta is an app written using flutter framework .
 Flask is a micro web framework written in Python. It is classified as a microframework because it does not require particular tools or libraries.
